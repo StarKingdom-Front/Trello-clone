@@ -1,0 +1,15 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 15px;
+    width: 295px;
+    background-color: #ebeff1;
+    height: 200px;
+    text-align: center;
+}
+
+.body span {
+    text-align: right;
+}
+
