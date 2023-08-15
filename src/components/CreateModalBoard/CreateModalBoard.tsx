@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
 import styles from "./CreateModalBoard.module.css";
-import { IBoards } from "../../interface/Boards.interface";
+import { IBoards } from "../../interface/interface";
 import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -24,15 +24,16 @@ const style = {
 };
 
 interface ICreateBord {
-  setBoard: React.Dispatch<React.SetStateAction<IBoards[]>>;
+  setBoards?: React.Dispatch<React.SetStateAction<IBoards[]>>;
+  setSprints?: React.Dispatch<React.SetStateAction<IBoards[]>> | any;
 }
 
 interface IcreateForm {
-  title: string;
-  desc: string;
+  title?: string;
+  desc?: string;
 }
 
-export default function BasicModal({ setBoard }: ICreateBord) {
+export default function BasicModal({ setBoards, setSprints }: ICreateBord) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -64,7 +65,8 @@ export default function BasicModal({ setBoard }: ICreateBord) {
   const submitData = async (event: any) => {
     if (isValid) {
       event.preventDefault();
-      const { title, desc, id } = userData;
+      if(setBoards) {
+        const { title, desc, id } = userData;
       const res = axios
         .post(
           "https://trello-board-8e7cf-default-rtdb.firebaseio.com/pages.json",
@@ -78,13 +80,36 @@ export default function BasicModal({ setBoard }: ICreateBord) {
           console.log({ response });
           const data = response.data.name;
           console.log(data);
-          let test = setBoard((prev: any) => [
+          let test = setBoards((prev: any) => [
             ...prev,
             { ...userData, id: response.data.name },
           ]);
           console.log({ test });
         });
       handleClose();
+      } else if(setSprints) {
+        const { title, desc, id } = userData;
+      const res = axios
+        .post(
+          "https://trello-board-8e7cf-default-rtdb.firebaseio.com/pages.json",
+          {
+            desc,
+            title,
+            id: Number(`${Math.floor(Math.random() * 100) + 1}`),
+          }
+        )
+        .then(function (response) {
+          console.log({ response });
+          const data = response.data.name;
+          console.log(data);
+          let test = setSprints((prev: any) => [
+            ...prev,
+            { ...userData, id: response.data.name },
+          ]);
+          console.log({ test });
+        });
+      handleClose();
+      }
     } else {
       console.log("error");
     }
@@ -166,7 +191,9 @@ export default function BasicModal({ setBoard }: ICreateBord) {
                 {errors?.desc.message || "Название не заполнено!"}
               </span>
             )}
-            <Button className="btn" onClick={submitData} variant="contained">Create Board</Button>
+            <Button className="btn" onClick={submitData} variant="contained">
+              Create Board
+            </Button>
           </form>
         </Box>
       </Modal>

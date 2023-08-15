@@ -1,0 +1,32 @@
+.add {
+    width: 350px;
+    min-width: 200px;
+    height: 60px;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px;
+}
+
+.body {
+    margin: auto;
+    display: flex;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+    align-items: center;
+    overflow-y: hidden;
+    overflow: auto;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.content {
+    margin: auto;
+    display: flex;
+    gap: 20px;
+}
+
+
+.columns__body {
+    display: flex;
+    gap: 4px;
+}

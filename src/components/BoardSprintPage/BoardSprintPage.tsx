@@ -1,12 +1,12 @@
 import React from "react";
 import { IBoards } from "../../interface/interface";
 
-import styles from "./BoardsHomePage.module.css";
+import styles from "./BoardSprintPage.module.css";
 import { Link } from "react-router-dom";
 
-const BoardsHomePage: React.FC<IBoards> = ({ id, title, desc }) => {
+const BoardSprintPage: React.FC<IBoards> = ({ id, title, desc }) => {
   return (
-    <Link to={`/pages/${id}`}>
+    <Link to={`/spirntBoard/${id}`}>
       <div className={styles.body}>
         <h3>{title}</h3>
         <div className={styles.text}>
@@ -17,4 +17,4 @@ const BoardsHomePage: React.FC<IBoards> = ({ id, title, desc }) => {
   );
 };
 
-export default BoardsHomePage;
+export default BoardSprintPage;

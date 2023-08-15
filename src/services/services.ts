@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IBoards } from "../interface/Boards.interface";
+import { IBoards } from "../interface/interface";
 
 export const services = {
   async getAll() {

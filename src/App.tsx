@@ -6,14 +6,19 @@ import Home from './pages/Home/Home';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import Sprint from './pages/Sprint/Sprint';
+import SprintBoard from './pages/SprintBoard/SprintBoard';
 
 function App() {
+  
   return (
     <div className="App">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pages/:id" element={<Sprint />} />
+{/* 
+        <Route path="/" element={<SprintBoard />} /> */}
+        {/* /spirntBoard/:id */}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

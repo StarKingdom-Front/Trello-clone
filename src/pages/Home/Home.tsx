@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { services } from "../../services/services";
-import { IBoards } from "../../interface/Boards.interface";
+import { IBoards } from "../../interface/interface";
 import BoardsHomePage from "../../components/Board/BoardsHomePage";
 
 import styles from "./Home.module.css";
 import CreateModalBoard from "../../components/CreateModalBoard/CreateModalBoard";
 
 export default function Home() {
-  const [boards, setBoard] = useState<IBoards[]>([]);
+  const [boards, setBoards] = useState<IBoards[]>([]);
 
   const [search, setSearch] = useState("");
 
@@ -15,24 +15,22 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const data = await services.getAll();
-        setBoard(data);
+        setBoards(data);
       } catch (e) {
         console.log("error");
       }
     };
 
     fetchData();
-  }, [setBoard]);
+  }, [setBoards]);
 
-  const filterBoards = boards.filter(board => {
-    return board.title.toLowerCase().includes(search.toLowerCase())
-  })
+  const filterBoards = boards.filter((board) => {
+    return board.title.toLowerCase().includes(search.toLowerCase());
+  });
 
   const BoardsHome = filterBoards.map((board) => (
     <BoardsHomePage key={board.id} {...board} />
   ));
-
-  
 
   return (
     <div>
@@ -40,7 +38,8 @@ export default function Home() {
         <h1 style={{ textAlign: "center" }}>All Bords</h1>
 
         <div className={styles.body__filter}>
-          <input className={styles.filter}
+          <input
+            className={styles.filter}
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -52,7 +51,7 @@ export default function Home() {
           {boards.length ? BoardsHome : <h1>Create new boards</h1>}
 
           <div>
-            <CreateModalBoard setBoard={setBoard} />
+            <CreateModalBoard setBoards={setBoards} />
           </div>
         </div>
       </div>
