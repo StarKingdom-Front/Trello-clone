@@ -22,28 +22,21 @@ const defaultCols: IColumn[] = [
   {
     id: "todo",
     title: "Todo",
+    now: '-'
   },
   {
     id: "doing",
     title: "Work in progress",
+    now: '-'
   },
   {
     id: "done",
     title: "Done",
+    now: '-'
   },
 ];
 
 const SprintBoard = () => {
-  // const [text, setText] = useState("");
-  // const dispatch = useAppDispatch();
-
-  // const handleAction = () => {
-  //   if (text.trim().length) {
-  //     dispatch(addTodo(text));
-  //     setText("");
-  //   }
-  // };
-
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
@@ -58,11 +51,16 @@ const SprintBoard = () => {
       },
     })
   );
-  console.log(columns);
+
   function createNewColumn() {
+    const today = new Date();
+
+    const now = today.toLocaleTimeString("en-US");
+    console.log(now);
     const columnToAdd: IColumn = {
       id: generateId(),
-      title: `Column ${columns.length + 1}`,
+      title: `Click update, Column ${columns.length + 1}`,
+      now: now,
     };
 
     setColumns([...columns, columnToAdd]);
@@ -166,7 +164,7 @@ const SprintBoard = () => {
     const newTask: ITask = {
       id: generateId(),
       columnId,
-      content: `Task ${tasks.length + 1}`,
+      content: `Click update, Task ${tasks.length + 1}`,
     };
 
     setTasks([...tasks, newTask]);

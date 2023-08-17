@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -13,7 +15,7 @@ export default function Footer() {
         height: '80px',
       }}
     >
-      <h2>My Trello Board</h2>
+      <h2>{t("My Trello Board")}</h2>
     </div>
   );
 }

@@ -4,6 +4,7 @@ export interface IBoards {
   id: number;
   title: string;
   desc?: string;
+  deleteBoard?: (id: string | number) => void
 }
 
 export interface IModel {
@@ -31,6 +32,7 @@ export interface IColumnLayoutProps {
 export interface IColumn {
   id: string | number;
   title: string;
+  now: any
 }
 
 export interface ITask {

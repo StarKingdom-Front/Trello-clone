@@ -76,7 +76,7 @@ const TaskCard = ({ task, deleteTask, updateTask }: Props) => {
       onMouseLeave={() => setMouseIsOver(false)}
       className={styles.body}
     >
-      <p>{task.content}</p>
+      <p style={{wordBreak: 'break-all'}}>{task.content}</p>
       {mouseIsOver && (
         <DeleteIcon style={{cursor: 'pointer'}}
           onClick={() => {

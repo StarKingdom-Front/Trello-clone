@@ -73,7 +73,7 @@ const Column = (props: IProps) => {
           setEditMode(true);
         }}
       >
-        <div>
+        <div style={{wordBreak: 'break-all', maxWidth: '200px'}}>
           {!editMode && columns.title}
           {editMode && (
             <input
@@ -121,6 +121,7 @@ const Column = (props: IProps) => {
           <AddIcon /> Add Task
         </Button>
       </div>
+      <p>time: {columns.now}</p>
     </div>
   );
 };

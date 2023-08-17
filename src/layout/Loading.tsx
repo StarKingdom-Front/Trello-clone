@@ -1,7 +1,9 @@
 import { CircularProgress, Stack } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Loading() {
+  const { t } = useTranslation();
   return (
     <div className="_container">
       <div
@@ -17,7 +19,7 @@ export default function Loading() {
         <Stack sx={{ color: "grey.500" }} spacing={2} direction="row">
           <CircularProgress color="success" />
         </Stack>
-        <h1 style={{ marginTop: "30px" }}>Wait page loading...</h1>
+        <h1 style={{ marginTop: "30px" }}>{t("Wait page loading...")}</h1>
       </div>
     </div>
   );

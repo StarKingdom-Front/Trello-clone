@@ -1,9 +1,16 @@
 .btn {
   padding: 10px;
   border-radius: 15px;
-  width: 315px;
+  width: 300px;
   background-color: #c0d0e1 !important;
-  height: 220px;
+  height: 219.98px;
+}
+
+@media(max-width: 350px) {
+  .btn {
+      width: 260px;
+      height: 180px;
+  }
 }
 
 .form__body {

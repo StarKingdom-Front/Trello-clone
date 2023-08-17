@@ -7,7 +7,7 @@
     background: white;
     border-radius: 15px;
     border: 1px solid #1976d2;
-    overflow: auto;
+    cursor: pointer;
 }
 
 .body__input input{

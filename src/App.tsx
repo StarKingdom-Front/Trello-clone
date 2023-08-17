@@ -16,10 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pages/:id" element={<Sprint />} />
-{/* 
-        <Route path="/" element={<SprintBoard />} /> */}
-        {/* /spirntBoard/:id */}
-
+        <Route path="/pages/:id/sprint/:id" element={<SprintBoard />} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

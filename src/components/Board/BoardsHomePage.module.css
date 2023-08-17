@@ -3,10 +3,28 @@
     flex-direction: column;
     padding: 10px;
     border-radius: 15px;
-    width: 295px;
+    width: 280px;
     background-color: #ebeff1;
     height: 200px;
     text-align: center;
+    justify-content: space-between;
+}
+
+.btn {
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+    transition: .2s;
+}
+
+@media(max-width: 350px) {
+    .body {
+        width: 240px;
+        height: 180px;
+    }
 }
 
 .body span {

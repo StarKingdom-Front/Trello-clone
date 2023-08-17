@@ -10,6 +10,10 @@ import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { db } from "../../firebase";
+import { child, push, ref, set, update } from "firebase/database";
+import { useParams } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -26,6 +30,7 @@ const style = {
 interface ICreateBord {
   setBoards?: React.Dispatch<React.SetStateAction<IBoards[]>>;
   setSprints?: React.Dispatch<React.SetStateAction<IBoards[]>> | any;
+  board?: any;
 }
 
 interface IcreateForm {
@@ -33,10 +38,15 @@ interface IcreateForm {
   desc?: string;
 }
 
-export default function BasicModal({ setBoards, setSprints }: ICreateBord) {
+export default function BasicModal({
+  setBoards,
+  setSprints,
+  board,
+}: ICreateBord) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   const {
     register,
@@ -61,58 +71,40 @@ export default function BasicModal({ setBoards, setSprints }: ICreateBord) {
     setUserData({ ...userData, [name]: value });
   };
 
-  //connect with firebase
-  const submitData = async (event: any) => {
+  const submitData = (e: any) => {
     if (isValid) {
-      event.preventDefault();
-      if(setBoards) {
-        const { title, desc, id } = userData;
-      const res = axios
-        .post(
-          "https://trello-board-8e7cf-default-rtdb.firebaseio.com/pages.json",
-          {
-            desc,
-            title,
-            id: Number(`${Math.floor(Math.random() * 100) + 1}`),
-          }
-        )
-        .then(function (response) {
-          console.log({ response });
-          const data = response.data.name;
-          console.log(data);
-          let test = setBoards((prev: any) => [
-            ...prev,
-            { ...userData, id: response.data.name },
-          ]);
-          console.log({ test });
+      e.preventDefault();
+      if (setBoards) {
+        const id = Math.floor(Math.random() * 10001);
+        const { title, desc } = userData;
+        set(ref(db, `pages/${id}`), {
+          title,
+          desc,
+          id: id,
         });
-      handleClose();
-      } else if(setSprints) {
-        const { title, desc, id } = userData;
-      const res = axios
-        .post(
-          "https://trello-board-8e7cf-default-rtdb.firebaseio.com/pages.json",
-          {
-            desc,
-            title,
-            id: Number(`${Math.floor(Math.random() * 100) + 1}`),
-          }
-        )
-        .then(function (response) {
-          console.log({ response });
-          const data = response.data.name;
-          console.log(data);
-          let test = setSprints((prev: any) => [
-            ...prev,
-            { ...userData, id: response.data.name },
-          ]);
-          console.log({ test });
+
+        setUserData({
+          title: "",
+          desc: "",
+          id: "",
         });
-      handleClose();
+      } else if (setSprints) {
+        const { title, desc } = userData;
+        const sprintId = Math.floor(Math.random() * 10001);
+        const aa = set(ref(db, `pages/${board.id}/sprint/${sprintId}`), {
+          title,
+          desc,
+          id: sprintId,
+        });
+
+        setUserData({
+          title: "",
+          desc: "",
+          id: "",
+        });
       }
-    } else {
-      console.log("error");
     }
+    handleClose();
   };
 
   const submit: SubmitHandler<IcreateForm> = (data) => {
@@ -122,7 +114,7 @@ export default function BasicModal({ setBoards, setSprints }: ICreateBord) {
   return (
     <div>
       <Button className={styles.btn} onClick={handleOpen}>
-        Create New Board
+        {t("Create new boards")}
       </Button>
       <Modal
         open={open}
