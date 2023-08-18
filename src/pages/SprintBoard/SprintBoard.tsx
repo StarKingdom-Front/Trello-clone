@@ -17,6 +17,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import TaskCard from "./TaskCard/TaskCard";
 import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const defaultCols: IColumn[] = [
   {
@@ -43,6 +44,7 @@ const SprintBoard = () => {
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
 
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const { t } = useTranslation();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -215,7 +217,7 @@ const SprintBoard = () => {
                   onClick={createNewColumn}
                   variant="contained"
                 >
-                  Add Column
+                  {t("Add Column")}
                 </Button>
               </div>
               {createPortal(

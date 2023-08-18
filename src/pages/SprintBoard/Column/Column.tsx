@@ -8,6 +8,7 @@ import TaskCard from "../TaskCard/TaskCard";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   columns: IColumn;
@@ -32,6 +33,7 @@ const Column = (props: IProps) => {
   } = props;
 
   const [editMode, setEditMode] = useState(false);
+  const { t } = useTranslation();
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
@@ -118,7 +120,7 @@ const Column = (props: IProps) => {
             createTask(columns.id);
           }}
         >
-          <AddIcon /> Add Task
+          <AddIcon /> {t("Add Task")}
         </Button>
       </div>
       <p>time: {columns.now}</p>

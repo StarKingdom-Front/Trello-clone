@@ -67,7 +67,7 @@ export default function Sprint() {
   return (
     <div className="_container-sprint">
       <div>
-        <h1>Спринты</h1>
+        <h1>{t("Sprints")}</h1>
         <h2>{board.title}</h2>
         <p>
           <span style={{ fontWeight: "700" }}>{t("Description")}</span> {board.desc}
